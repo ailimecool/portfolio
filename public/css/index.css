@@ -1,0 +1,14 @@
+main {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.welcome {
+  grid-column-start: 1;
+  grid-column-end: 2;
+}
+
+.welcome-picture {
+  grid-column-start: 2;
+  grid-column-end: 3;
+}

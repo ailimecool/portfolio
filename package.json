@@ -1,0 +1,23 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "description": "My portfolio for the future",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "portfolio",
+    "node",
+    "express",
+    "my-works",
+    "future"
+  ],
+  "author": "Emilia Fredriksson",
+  "license": "ISC",
+  "dependencies": {
+    "and": "^0.0.3",
+    "express": "^4.18.2",
+    "express-handlebars": "^7.1.2"
+  }
+}

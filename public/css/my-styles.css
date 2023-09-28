@@ -1,0 +1,53 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  background-color: lightgreen;
+  padding: 1rem;
+}
+
+.flag {
+  width: 2rem;
+  height: fit-content;
+}
+
+.logotype {
+  text-align: center;
+}
+
+.login-button {
+  text-align: end;
+}
+
+.navigation {
+  text-align: center;
+  color: white;
+  text-decoration: none;
+}
+
+.nav-item {
+  color: white;
+  text-decoration: none;
+  padding: 0.25rem;
+}
+
+.nav-item:hover {
+  color: grey;
+  /* change color later */
+}
+
+main {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  margin-left: 10rem;
+  margin-right: 10rem;
+}
+
+footer {
+  background-color: lightgreen;
+  font-size: x-small;
+  text-align: end;
+  padding: 1rem;
+}
