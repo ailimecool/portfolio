@@ -3,25 +3,7 @@ body {
   font-family: Arial, sans-serif;
 }
 
-header {
-  background-color: #ffc0cb;
-  padding: 1rem;
-}
-
-.flag {
-  width: 2rem;
-  height: fit-content;
-}
-
-.logotype {
-  text-align: center;
-}
-
-.login-button {
-  text-align: end;
-}
-
-.navigation {
+.nav-pos {
   text-align: center;
   color: white;
   text-decoration: none;
@@ -34,20 +16,22 @@ header {
 }
 
 .nav-item:hover {
-  color: grey;
-  /* change color later */
+  size: 110%;
 }
 
-main {
-  margin-top: 3rem;
-  margin-bottom: 3rem;
-  margin-left: 10rem;
-  margin-right: 10rem;
+.container {
+  margin-left: 7rem;
+  margin-right: 7rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
 }
 
-footer {
-  background-color: #ffc0cb;
-  font-size: x-small;
-  text-align: end;
-  padding: 1rem;
+.welcome {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.welcome-pic {
+  grid-column-start: 3;
+  grid-column-end: 5;
 }
