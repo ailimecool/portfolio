@@ -4,7 +4,7 @@ body {
 }
 
 header {
-  background-color: lightgreen;
+  background-color: #ffc0cb;
   padding: 1rem;
 }
 
@@ -46,7 +46,7 @@ main {
 }
 
 footer {
-  background-color: lightgreen;
+  background-color: #ffc0cb;
   font-size: x-small;
   text-align: end;
   padding: 1rem;

@@ -20,6 +20,16 @@
       <div class="logotype">
         <img src="" alt="My logo" />
       </div>
+
+      <div class navigation></div>
+      <nav>
+        <ul>
+          {{#each navItemE}}
+          <li><a href="{{navLink}}">"{{navTitle}}"</a></li>
+          {{/each}}
+        </ul>
+      </nav>
+
       <div class="navigation">
         <nav>
           <a class="nav-item" href="index.html">HOME</a>
