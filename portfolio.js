@@ -11,9 +11,11 @@ app.set("views", "./views");
 
 app.use(express.static("public"));
 
-app.get("/public/css/my-styles.css", (req, res) => {
-  res.render("/public/css/my-styles.css");
-});
+// app.get("/public/css/my-styles.css", (req, res) => {
+//   res.render("/public/css/my-styles.css");
+// });
+
+// How do I do this?
 
 app.get("/", function (req, res) {
   res.render("home.handlebars");
@@ -33,6 +35,10 @@ app.get("/about-me", function (req, res) {
 
 app.get("/contact", function (req, res) {
   res.render("contact.handlebars");
+});
+
+app.get("/login", function (req, res) {
+  res.render("login.handlebars");
 });
 
 const sqlite3 = require("sqlite3");
