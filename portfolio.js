@@ -36,7 +36,7 @@ app.get("/contact", function (req, res) {
 });
 
 const sqlite3 = require("sqlite3");
-const db = new new sqlite3.Database("database-portfolio.db")();
+const db = new sqlite3.Database("database-portfolio.db")();
 
 app.listen(port, () => {
   console.log("Server running and listening on port 2003...");
