@@ -1,6 +1,8 @@
 body {
   margin: 0;
+  background-color: #181818;
   font-family: Arial, sans-serif;
+  color: #ffffff;
 }
 
 header {
@@ -50,6 +52,7 @@ header {
   grid-template-columns: repeat(4, 1fr);
 }
 
+/* home page */
 .welcome {
   grid-column-start: 1;
   grid-column-end: 3;
@@ -60,9 +63,11 @@ header {
   grid-column-end: 5;
 }
 
+/* about page */
 .about {
   grid-column-start: 1;
   grid-column-end: 3;
+  padding-right: 5rem;
 }
 
 .about-pic {
@@ -73,9 +78,51 @@ header {
 .me {
   width: 20rem;
   height: fit-content;
+  border-radius: 3rem;
+}
+
+/* contact page */
+.message-function {
+  grid-column-start: 1;
+  grid-column-end: 5;
+}
+
+.message-name {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.message-surname {
+  grid-column-start: 3;
+  grid-column-end: 5;
+}
+
+.message-mail {
+  grid-column-start: 1;
+  grid-column-end: 5;
+}
+
+.message {
+  grid-column-start: 1;
+  grid-column-end: 5;
+}
+
+.message-date {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.send-button {
+  grid-column-start: 3;
+  grid-column-end: 5;
 }
 
 /* login */
+.login-function {
+  grid-column-start: 1;
+  grid-column-end: 5;
+}
+
 #username {
   grid-column-start: 1;
   grid-column-end: 3;

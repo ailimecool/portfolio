@@ -19,6 +19,24 @@ app.get("/work-page", function (req, res) {
   res.render("work-page.handlebars");
 });
 
+app.get("/projects", function (req, res) {
+  db.all("SELECT * FROM projects", function (error, theProjects) {
+    if (error) {
+      const model = { hasDatabaseError: true, theError: error, projects: [] };
+
+      res.render("/work-page.handlebars", model);
+    } else {
+      const model = {
+        hasDatabaseError: false,
+        theError: "",
+        projects: theProjects,
+      };
+
+      res.render("/work-page.handlebars", model);
+    }
+  });
+});
+
 app.get("/project-page", function (req, res) {
   res.render("project-page.handlebars");
 });
