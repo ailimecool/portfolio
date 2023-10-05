@@ -11,11 +11,6 @@ app.set("views", "./views");
 
 app.use(express.static("public"));
 
-// app.get("/public/css/my-styles.css", (req, res) => {
-//   res.render("public/css/my-styles.css");
-// });
-// How do I do this?
-
 app.get("/", function (req, res) {
   res.render("home.handlebars");
 });
@@ -44,7 +39,7 @@ const sqlite3 = require("sqlite3");
 const db = new sqlite3.Database("database-portfolio.db");
 
 db.run(
-  "CREATE TABLE user(pid INTEGER PRiMARY KEY, pusername TEXT NOT NULL, ppassword TEXT NOT NULL, pemail TEXT NOT NULL)",
+  "CREATE TABLE user(userid INTEGER PRiMARY KEY, userusername TEXT NOT NULL, userpassword TEXT NOT NULL, useremail TEXT NOT NULL)",
   (error) => {
     if (error) {
       console.log("ERROR", error);
@@ -59,12 +54,26 @@ db.run(
           email: "frem22pu@student.ju.se",
         },
       ];
+
+      user.forEach((oneUser) => {
+        db.run(
+          "INSERT INTO messages(userid, userusername, userpassword, useremail) values (?,?,?,?)",
+          [oneUser.id, oneUser.username, oneUser.password, oneUser.email],
+          (error) => {
+            if (error) {
+              console.log("ERROR", error);
+            } else {
+              console.log("Line added into user tabel!");
+            }
+          }
+        );
+      });
     }
   }
 );
 
 db.run(
-  "CREATE TABLE messages(pid INTEGER PRIMARY KEY, pname TEXT NOT NULL, psurname TEXT NOT NULL, pemail TEXT NOT NULL, pmessage TEXT NOT NULL, pdate TEXT NOT NULL)",
+  "CREATE TABLE messages(messageid INTEGER PRIMARY KEY, messagename TEXT NOT NULL, messagesurname TEXT NOT NULL, messageemail TEXT NOT NULL, messagemessage TEXT NOT NULL, messagedate TEXT NOT NULL)",
   (error) => {
     if (error) {
       console.log("ERROR", error);
@@ -75,12 +84,13 @@ db.run(
 
       messages.forEach((oneMessage) => {
         db.run(
-          "INSERT INTO messages(pid, pname, psurname, pemail, pmessage, pdate) values (?,?,?,?,?,?)",
+          "INSERT INTO messages(messageid, messagename, messagesurname, messageemail, messagemessage, messagedate) values (?,?,?,?,?,?)",
           [
             oneMessage.id,
-            oneMessage.img,
             oneMessage.name,
-            oneMessage.desription,
+            oneMessage.surname,
+            oneMessage.email,
+            oneMessage.message,
             oneMessage.date,
           ],
           (error) => {
@@ -97,7 +107,7 @@ db.run(
 );
 
 db.run(
-  "CREATE TABLE projects (pid INTEGER PRIMARY KEY, pimg TEXT NOT NULL, pname TEXT NOT NULL, pdescription TEXT NOT NULL, pdate REAL NOT NULL)",
+  "CREATE TABLE projects (projectid INTEGER PRIMARY KEY, projectimg TEXT NOT NULL, projectname TEXT NOT NULL, projectdescription TEXT NOT NULL, pprojectdate REAL NOT NULL)",
   (error) => {
     if (error) {
       console.log("ERROR", error);
@@ -122,12 +132,12 @@ db.run(
 
       projects.forEach((oneProject) => {
         db.run(
-          "INSERT INTO projects(pid, pimg, pname, pdesription, pdate) values (?,?,?,?,?)",
+          "INSERT INTO projects(projectid, projectimg, projectname, projectdescription, projectdate) values (?,?,?,?,?)",
           [
             oneProject.id,
             oneProject.img,
             oneProject.name,
-            oneProject.desription,
+            oneProject.description,
             oneProject.date,
           ],
           (error) => {
@@ -144,7 +154,7 @@ db.run(
 );
 
 db.run(
-  "CREATE TABLE projectTag (ptid INTEGER PRIMARY KEY, pid INTEGER, tid INTEGER, FOREIGN KEY (pid) REFERENCES projects, FOREIGN KEY (tid) REFERENCES tag",
+  "CREATE TABLE projectTag (projecttagid INTEGER PRIMARY KEY, projectid INTEGER, tagid INTEGER, FOREIGN KEY (projectid) REFERENCES projects, FOREIGN KEY (tagid) REFERENCES tag",
   (error) => {
     if (error) {
       console.log("ERROR", error);
@@ -155,8 +165,8 @@ db.run(
 
       projectTag.forEach((oneProjectTag) => {
         db.run(
-          "INSERT INTO projectTag(ptid, pid, tid) values (?,?, ?)",
-          [oneProjectTag.id, oneProjectTag.pid, oneProjectTag.tid],
+          "INSERT INTO projectTag(projecttagid, projectid, tagid) values (?,?, ?)",
+          [oneProjectTag.id, oneProjectTag.projectid, oneProjectTag.tagid],
           (error) => {
             if (error) {
               console.log("ERROR", error);
@@ -171,7 +181,7 @@ db.run(
 );
 
 db.run(
-  "CREATE TABLE tag (pid INTEGER PRIMARY KEY, ptagname TEXT NOT NULL",
+  "CREATE TABLE tag (tagid INTEGER PRIMARY KEY, tagtagname TEXT NOT NULL",
   (error) => {
     if (error) {
       console.log("ERROR", error);
@@ -190,7 +200,7 @@ db.run(
 
       tag.forEach((oneTag) => {
         db.run(
-          "INSERT INTO tag(pid, ptaganem) values (?,?)",
+          "INSERT INTO tag(tagid, tagtaganem) values (?,?)",
           [oneTag.id, oneTag.tagname],
           (error) => {
             if (error) {
