@@ -3,16 +3,40 @@ body {
   font-family: Arial, sans-serif;
 }
 
+header {
+  padding: 2rem;
+}
+
 .nav-pos {
   text-align: center;
-  color: white;
   text-decoration: none;
 }
 
 .nav-item {
-  color: white;
+  color: #ffb6c1;
+  padding: 0.25rem;
+  font-size: x-large;
+}
+
+.nav-item:visited {
+  color: #ffb6c1;
   text-decoration: none;
   padding: 0.25rem;
+  font-size: x-large;
+}
+
+.nav-item1 {
+  color: #ff8fa5;
+  text-decoration: none;
+  padding: 0.25rem;
+  font-size: x-large;
+}
+
+.nav-item1:visited {
+  color: #ff8fa5;
+  text-decoration: none;
+  padding: 0.25rem;
+  font-size: x-large;
 }
 
 .nav-item:hover {
@@ -34,4 +58,35 @@ body {
 .welcome-pic {
   grid-column-start: 3;
   grid-column-end: 5;
+}
+
+.about {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.about-pic {
+  grid-column-start: 3;
+  grid-column-end: 5;
+}
+
+.me {
+  width: 20rem;
+  height: fit-content;
+}
+
+/* login */
+#username {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+#password {
+  grid-column-start: 3;
+  grid-column-end: 5;
+}
+
+#login-button {
+  grid-column-start: 2;
+  grid-column-end: 4;
 }

@@ -57,7 +57,7 @@ db.run(
 
       user.forEach((oneUser) => {
         db.run(
-          "INSERT INTO messages(userid, userusername, userpassword, useremail) values (?,?,?,?)",
+          "INSERT INTO user(userid, userusername, userpassword, useremail) values (?,?,?,?)",
           [oneUser.id, oneUser.username, oneUser.password, oneUser.email],
           (error) => {
             if (error) {
@@ -107,7 +107,7 @@ db.run(
 );
 
 db.run(
-  "CREATE TABLE projects (projectid INTEGER PRIMARY KEY, projectimg TEXT NOT NULL, projectname TEXT NOT NULL, projectdescription TEXT NOT NULL, pprojectdate REAL NOT NULL)",
+  "CREATE TABLE projects (projectid INTEGER PRIMARY KEY, projectimg TEXT NOT NULL, projectname TEXT NOT NULL, projectdescription TEXT NOT NULL, projectdate REAL NOT NULL)",
   (error) => {
     if (error) {
       console.log("ERROR", error);
