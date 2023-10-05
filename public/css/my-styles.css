@@ -63,6 +63,12 @@ header {
   grid-column-end: 5;
 }
 
+.welcome-pic1 {
+  width: 30rem;
+  height: fit-content;
+  border-radius: 3rem;
+}
+
 /* about page */
 .about {
   grid-column-start: 1;
