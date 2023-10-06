@@ -9,13 +9,17 @@
       <img src="{{projectimg}}" alt="{{projectimg}}" />
       <h1>{{projectname}}</h1>
       <p>{{projectdescription}}</p>
+
+      
       <div>
+        {{#if isAdmin}}
         <a href="/projects/update/{{projectid}}">MODIFY</a>
-        <a href="/projects/delete/{{projectid}}">DELETE</a>
+        <a href="/projects/delete/{{projectid}}">DELETE</a> 
+        {{/if}}
       </div>
+
     </a>
     {{/each}}
-
     {{/if}}
   </figure>
 
