@@ -251,6 +251,35 @@ app.get("/contact", function (req, res) {
   res.render("contact.handlebars", model);
 });
 
+// Send messages
+app.get("/messages/new", (req, res) => {
+  res.render("contact.handlebars");
+});
+
+app.post("/messages/new", (req, res) => {
+  const newmessage = [
+    req.body.messagename,
+    req.body.messagesurname,
+    req.body.message,
+    req.body.messageemail,
+    req.body.messagedate,
+  ];
+  db.run(
+    "INSERT INTO messages (messagename, messagesurname, message, messageemail, messagedate) VALUES (?,?,?,?,?)",
+    newmessage,
+    (error) => {
+      if (error) {
+        console.log("ERROR: ", error);
+      } else {
+        console.log("Line added into the messages table!");
+      }
+
+      res.redirect("/contact");
+    }
+  );
+});
+
+// Messages page
 app.get("/message", (req, res) => {
   const model = {
     isLoggedIn: req.session.isLoggedIn,
@@ -288,6 +317,76 @@ app.get("/messages", (req, res) => {
       };
 
       res.render("messages.handlebars", model);
+    }
+  });
+});
+
+// Dlete messages
+app.get("/messages/delete/:id", (req, res) => {
+  const id = req.params.id;
+  if (req.session.isLoggedIn === true && req.session.isAdmin === true) {
+    db.run(
+      "DELETE FROM messages WHERE messageid=?",
+      [id],
+      function (error, theMessages) {
+        if (error) {
+          const model = {
+            dbError: true,
+            theError: error,
+            isLoggedIn: req.session.isLoggedIn,
+            name: req.session.name,
+            isAdmin: req.session.isAdmin,
+          };
+
+          res.render("messages.handlebars", model);
+        } else {
+          console.log("Message deleted!");
+          const model = {
+            dbError: false,
+            theError: "",
+            isLoggedIn: req.session.isLoggedIn,
+            name: req.session.name,
+            isAdmin: req.session.isAdmin,
+          };
+
+          res.render("messages.handlebars", model);
+        }
+      }
+    );
+  }
+  app.get("/projects/delete/:id", (req, res) => {
+    const id = req.params.id;
+    if (req.session.isLoggedIn === true && req.session.isAdmin === true) {
+      db.run(
+        "DELETE FROM projects WHERE projectid=?",
+        [id],
+        function (error, theProjects) {
+          if (error) {
+            const model = {
+              dbError: true,
+              theError: error,
+              isLoggedIn: req.session.isLoggedIn,
+              name: req.session.name,
+              isAdmin: req.session.isAdmin,
+            };
+
+            res.render("projects.handlebars", model);
+          } else {
+            console.log("Project deleted!");
+            const model = {
+              dbError: false,
+              theError: "",
+              isLoggedIn: req.session.isLoggedIn,
+              name: req.session.name,
+              isAdmin: req.session.isAdmin,
+            };
+
+            res.render("projects.handlebars", model);
+          }
+        }
+      );
+    } else {
+      res.redirect("/login");
     }
   });
 });
