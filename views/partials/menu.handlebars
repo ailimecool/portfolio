@@ -4,6 +4,11 @@
     <a class="nav-item1" href="/work-page">MY WORK</a>
     <a class="nav-item" href="/about-me">ABOUT ME</a>
     <a class="nav-item1" href="/contact">CONTACT</a>
-    <a class="nav-item" href="/login">LOG IN</a>
+
+    {{#if isLoggedIn}}
+      <a class="nav-item" href="/logout">LOG OOT</a>
+    {{else}}
+      <a class="nav-item" href="/login">LOG IN</a>
+    {{/if}}
   </nav>
 </header>

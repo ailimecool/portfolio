@@ -3,6 +3,9 @@ const { engine } = require("express-handlebars");
 const port = 2003;
 const app = express();
 const bodyParser = require("body-parser");
+const session = require("express-session");
+const connectSqlite3 = require("connect-sqlite3");
+const cookieParser = require("cookie-parser");
 
 app.engine("handlebars", engine());
 
@@ -15,46 +18,87 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+const SQLiteStore = connectSqlite3(session);
+
+app.use(
+  session({
+    store: new SQLiteStore({ db: "session-db.db" }),
+    saveUninitialized: false,
+    resave: false,
+    secret: "ThisIsMySecretPasswordWebDev",
+  })
+);
+
 app.get("/", function (req, res) {
-  res.render("home.handlebars");
+  console.log("SESSION: ", req.session);
+  const model = {
+    isLoggedIn: req.session.isLoggedIn,
+    name: req.session.name,
+    isAdmin: req.session.isAdmin,
+  };
+  res.render("home.handlebars", model);
 });
 
 app.get("/work-page", function (req, res) {
-  res.render("work-page.handlebars");
+  const model = {
+    isLoggedIn: req.session.isLoggedIn,
+    name: req.session.name,
+    isAdmin: req.session.isAdmin,
+  };
+  res.render("work-page.handlebars", model);
 });
 
-// app.get("/projects", function (req, res) {
-//   db.all("SELECT * FROM projects", function (error, theProjects) {
-//     if (error) {
-//       const model = { hasDatabaseError: true, theError: error, projects: [] };
+app.get("/projects", function (req, res) {
+  db.all("SELECT * FROM projects", function (error, theProjects) {
+    if (error) {
+      const model = { hasDatabaseError: true, theError: error, projects: [] };
 
-//       res.render("work-page.handlebars", model);
-//     } else {
-//       const model = {
-//         hasDatabaseError: false,
-//         theError: "",
-//         projects: theProjects,
-//       };
+      res.render("work-page.handlebars", model);
+    } else {
+      const model = {
+        hasDatabaseError: false,
+        theError: "",
+        projects: theProjects,
+      };
 
-//       res.render("work-page.handlebars", model);
-//     }
-//   });
-// });
+      res.render("work-page.handlebars", model);
+    }
+  });
+});
 
 app.get("/project-page", function (req, res) {
-  res.render("project-page.handlebars");
+  const model = {
+    isLoggedIn: req.session.isLoggedIn,
+    name: req.session.name,
+    isAdmin: req.session.isAdmin,
+  };
+  res.render("project-page.handlebars", model);
 });
 
 app.get("/about-me", function (req, res) {
-  res.render("about-me.handlebars");
+  const model = {
+    isLoggedIn: req.session.isLoggedIn,
+    name: req.session.name,
+    isAdmin: req.session.isAdmin,
+  };
+  res.render("about-me.handlebars", model);
 });
 
 app.get("/contact", function (req, res) {
-  res.render("contact.handlebars");
+  const model = {
+    isLoggedIn: req.session.isLoggedIn,
+    name: req.session.name,
+    isAdmin: req.session.isAdmin,
+  };
+  res.render("contact.handlebars", model);
 });
 
 app.get("/login", function (req, res) {
-  const model = {};
+  const model = {
+    isLoggedIn: req.session.isLoggedIn,
+    name: req.session.name,
+    isAdmin: req.session.isAdmin,
+  };
   res.render("login.handlebars", model);
 });
 
@@ -64,6 +108,28 @@ app.post("/login", (req, res) => {
 
   console.log("LOGIN: ", username);
   console.log("PASSWORD: ", password);
+
+  if (username === "emilia.fredriksson" && password === "WebDev") {
+    console.log("Emilia is logger in!");
+    req.session.isAdmin = true;
+    req.session.isLoggedIn = true;
+    req.session.name = "Emilia";
+    res.redirect("/");
+  } else {
+    console.log("Wrong user and/or password!");
+    req.session.isAdmin = false;
+    req.session.isLoggedIn = false;
+    req.session.name = "";
+    res.redirect("/login");
+  }
+});
+
+app.get("/logout", (req, res) => {
+  req.session.destroy((err) => {
+    console.log("Error while destroying the session: ", err);
+  });
+  console.log("Logged out...");
+  res.redirect("/");
 });
 
 const sqlite3 = require("sqlite3");
@@ -148,7 +214,7 @@ db.run(
       const projects = [
         {
           id: "1",
-          img: "/public/img/stylization-minnie-mouse.jpg",
+          img: "/img/stylization-minnie-mouse.jpg",
           name: "Stylization Minnie Mouse",
           description:
             "This was a school assignment my first year on the New Media Design program. We were supposed to make a stylization of whatever we wanted, with the help of illustrator. I choose to do Minnie Mouse bow because it is something that reminded me of my childhood and that I thought that I was able to do in the timeframe.",

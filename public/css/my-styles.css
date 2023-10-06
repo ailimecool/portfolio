@@ -41,8 +41,8 @@ header {
   font-size: x-large;
 }
 
-.nav-item:hover {
-  size: 110%;
+a:hover {
+  font-size: 110%;
 }
 
 .container {
