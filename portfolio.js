@@ -51,14 +51,26 @@ app.get("/work-page", function (req, res) {
 app.get("/projects", function (req, res) {
   db.all("SELECT * FROM projects", function (error, theProjects) {
     if (error) {
-      const model = { hasDatabaseError: true, theError: error, projects: [] };
+      const model = {
+        dbError: true,
+        theError: error,
+        projects: [],
+
+        isLoggedIn: req.session.isLoggedIn,
+        name: req.session.name,
+        isAdmin: req.session.isAdmin,
+      };
 
       res.render("work-page.handlebars", model);
     } else {
       const model = {
-        hasDatabaseError: false,
+        dbError: false,
         theError: "",
         projects: theProjects,
+
+        isLoggedIn: req.session.isLoggedIn,
+        name: req.session.name,
+        isAdmin: req.session.isAdmin,
       };
 
       res.render("work-page.handlebars", model);

@@ -1,7 +1,7 @@
 <main class="container">
   <button>all tags from database</button>
   <figure><a href="/project-page">
-{{#if hasDatabaseError}}
+{{#if dbError}}
 <div>Sorry technical issues! <br> {{theError}}</div>
 {{else}}
 
@@ -9,9 +9,19 @@
       <img src="{{projectimg}}" alt="{{projectimg}}" />
       <h1>{{projectname}}</h1>
       <p>{{projectdescription}}</p>
+      <div>
+        <a href="/projects/update/{{projectid}}">MODIFY</a>
+        <a href="/projects/delete/{{projectid}}">DELETE</a>
+      </div>
     </a>
     {{/each}}
 
     {{/if}}
   </figure>
+
+  {{#if isAdmin}}
+<div>
+  <a href="/projects/new">NEW PROJECT</a>
+</div>
+{{/if}}
 </main>

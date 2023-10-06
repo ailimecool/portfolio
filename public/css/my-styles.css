@@ -30,19 +30,20 @@ header {
 .nav-item1 {
   color: #ff8fa5;
   text-decoration: none;
-  padding: 0.25rem;
+  /* padding: 0.25rem; */
   font-size: x-large;
 }
 
 .nav-item1:visited {
   color: #ff8fa5;
   text-decoration: none;
-  padding: 0.25rem;
+  /* padding: 0.25rem; */
   font-size: x-large;
 }
 
 a:hover {
-  font-size: 110%;
+  font-style: italic;
+  text-decoration: none;
 }
 
 .container {
