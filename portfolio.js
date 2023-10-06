@@ -2,6 +2,7 @@ const express = require("express");
 const { engine } = require("express-handlebars");
 const port = 2003;
 const app = express();
+const bodyParser = require("body-parser");
 
 app.engine("handlebars", engine());
 
@@ -11,6 +12,9 @@ app.set("views", "./views");
 
 app.use(express.static("public"));
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 app.get("/", function (req, res) {
   res.render("home.handlebars");
 });
@@ -19,23 +23,23 @@ app.get("/work-page", function (req, res) {
   res.render("work-page.handlebars");
 });
 
-app.get("/projects", function (req, res) {
-  db.all("SELECT * FROM projects", function (error, theProjects) {
-    if (error) {
-      const model = { hasDatabaseError: true, theError: error, projects: [] };
+// app.get("/projects", function (req, res) {
+//   db.all("SELECT * FROM projects", function (error, theProjects) {
+//     if (error) {
+//       const model = { hasDatabaseError: true, theError: error, projects: [] };
 
-      res.render("/work-page.handlebars", model);
-    } else {
-      const model = {
-        hasDatabaseError: false,
-        theError: "",
-        projects: theProjects,
-      };
+//       res.render("work-page.handlebars", model);
+//     } else {
+//       const model = {
+//         hasDatabaseError: false,
+//         theError: "",
+//         projects: theProjects,
+//       };
 
-      res.render("/work-page.handlebars", model);
-    }
-  });
-});
+//       res.render("work-page.handlebars", model);
+//     }
+//   });
+// });
 
 app.get("/project-page", function (req, res) {
   res.render("project-page.handlebars");
@@ -50,7 +54,16 @@ app.get("/contact", function (req, res) {
 });
 
 app.get("/login", function (req, res) {
-  res.render("login.handlebars");
+  const model = {};
+  res.render("login.handlebars", model);
+});
+
+app.post("/login", (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+
+  console.log("LOGIN: ", username);
+  console.log("PASSWORD: ", password);
 });
 
 const sqlite3 = require("sqlite3");

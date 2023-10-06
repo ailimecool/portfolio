@@ -6,7 +6,7 @@ body {
 }
 
 header {
-  padding: 2rem;
+  padding: 3rem;
 }
 
 .nav-pos {
@@ -46,8 +46,8 @@ header {
 }
 
 .container {
-  margin-left: 7rem;
-  margin-right: 7rem;
+  margin-left: 10rem;
+  margin-right: 10rem;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
 }
@@ -64,7 +64,7 @@ header {
 }
 
 .welcome-pic1 {
-  width: 30rem;
+  width: 20rem;
   height: fit-content;
   border-radius: 3rem;
 }
