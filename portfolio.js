@@ -30,6 +30,7 @@ app.use(
   })
 );
 
+// Homepage
 app.get("/", function (req, res) {
   console.log("SESSION: ", req.session);
   const model = {
@@ -40,15 +41,17 @@ app.get("/", function (req, res) {
   res.render("home.handlebars", model);
 });
 
-app.get("/work-page", function (req, res) {
+// Project page
+app.get("/project", function (req, res) {
   const model = {
     isLoggedIn: req.session.isLoggedIn,
     name: req.session.name,
     isAdmin: req.session.isAdmin,
   };
-  res.render("work-page.handlebars", model);
+  res.render("projects.handlebars", model);
 });
 
+// Displaying projects from database
 app.get("/projects", (req, res) => {
   db.all("SELECT * FROM projects", function (error, theProjects) {
     if (error) {
@@ -79,6 +82,7 @@ app.get("/projects", (req, res) => {
   });
 });
 
+// Delete a project
 app.get("/projects/delete/:id", (req, res) => {
   const id = req.params.id;
   if (req.session.isLoggedIn === true && req.session.isAdmin === true) {
@@ -97,6 +101,7 @@ app.get("/projects/delete/:id", (req, res) => {
 
           res.render("projects.handlebars", model);
         } else {
+          console.log("Project deleted!");
           const model = {
             dbError: false,
             theError: "",
@@ -114,6 +119,7 @@ app.get("/projects/delete/:id", (req, res) => {
   }
 });
 
+// Create a new project
 app.get("/projects/new", (req, res) => {
   if (req.session.isLoggedIn === true && req.session.isAdmin === true) {
     const model = {
@@ -153,6 +159,7 @@ app.post("/projects/new", (req, res) => {
   }
 });
 
+// Update an existing project
 app.get("/projects/update/:id", (req, res) => {
   const id = req.params.id;
   db.get(
@@ -214,15 +221,17 @@ app.post("/projects/update/:id", (req, res) => {
   }
 });
 
-app.get("/project-page", function (req, res) {
-  const model = {
-    isLoggedIn: req.session.isLoggedIn,
-    name: req.session.name,
-    isAdmin: req.session.isAdmin,
-  };
-  res.render("project-page.handlebars", model);
-});
+// Eventually seperate project pages
+// app.get("/project-page", function (req, res) {
+//   const model = {
+//     isLoggedIn: req.session.isLoggedIn,
+//     name: req.session.name,
+//     isAdmin: req.session.isAdmin,
+//   };
+//   res.render("project-page.handlebars", model);
+// });
 
+// About page
 app.get("/about-me", function (req, res) {
   const model = {
     isLoggedIn: req.session.isLoggedIn,
@@ -232,6 +241,7 @@ app.get("/about-me", function (req, res) {
   res.render("about-me.handlebars", model);
 });
 
+// Contact page
 app.get("/contact", function (req, res) {
   const model = {
     isLoggedIn: req.session.isLoggedIn,
@@ -241,6 +251,48 @@ app.get("/contact", function (req, res) {
   res.render("contact.handlebars", model);
 });
 
+app.get("/message", (req, res) => {
+  const model = {
+    isLoggedIn: req.session.isLoggedIn,
+    name: req.session.name,
+    isAdmin: req.session.isAdmin,
+  };
+  res.render("messages.handlebars", model);
+});
+
+// Display messages
+app.get("/messages", (req, res) => {
+  db.all("SELECT * FROM messages", function (error, theMessages) {
+    if (error) {
+      const model = {
+        dbError: true,
+        theError: error,
+        messages: [],
+
+        isLoggedIn: req.session.isLoggedIn,
+        name: req.session.name,
+        isAdmin: req.session.isAdmin,
+      };
+
+      res.render("messages.handlebars", model);
+    } else {
+      console.log(theMessages);
+      const model = {
+        dbError: false,
+        theError: "",
+        messages: theMessages,
+
+        isLoggedIn: req.session.isLoggedIn,
+        name: req.session.name,
+        isAdmin: req.session.isAdmin,
+      };
+
+      res.render("messages.handlebars", model);
+    }
+  });
+});
+
+// Login function
 app.get("/login", function (req, res) {
   const model = {
     isLoggedIn: req.session.isLoggedIn,
@@ -272,6 +324,7 @@ app.post("/login", (req, res) => {
   }
 });
 
+// Logout funciton
 app.get("/logout", (req, res) => {
   req.session.destroy((err) => {
     console.log("Error while destroying the session: ", err);
@@ -280,6 +333,7 @@ app.get("/logout", (req, res) => {
   res.redirect("/");
 });
 
+// Database created
 const db = new sqlite3.Database("database-portfolio.db");
 
 db.run(
@@ -317,18 +371,27 @@ db.run(
 );
 
 db.run(
-  "CREATE TABLE messages(messageid INTEGER PRIMARY KEY AUTOINCREMENT, messagename TEXT NOT NULL, messagesurname TEXT NOT NULL, messageemail TEXT NOT NULL, messagemessage TEXT NOT NULL, messagedate TEXT NOT NULL)",
+  "CREATE TABLE messages(messageid INTEGER PRIMARY KEY AUTOINCREMENT, messagename TEXT NOT NULL, messagesurname TEXT NOT NULL, messageemail TEXT NOT NULL, message TEXT NOT NULL, messagedate TEXT NOT NULL)",
   (error) => {
     if (error) {
       console.log("ERROR", error);
     } else {
       console.log("---> Table messages created!");
 
-      const messages = [];
+      const messages = [
+        {
+          id: "1",
+          name: "Emilia",
+          surname: "Fredriksson",
+          email: "frem22pu@student.ju.se",
+          message: "test",
+          date: "2023-10-06",
+        },
+      ];
 
       messages.forEach((oneMessage) => {
         db.run(
-          "INSERT INTO messages(messageid, messagename, messagesurname, messageemail, messagemessage, messagedate) values (?,?,?,?,?,?)",
+          "INSERT INTO messages(messageid, messagename, messagesurname, messageemail, message, messagedate) values (?,?,?,?,?,?)",
           [
             oneMessage.id,
             oneMessage.name,
@@ -341,7 +404,7 @@ db.run(
             if (error) {
               console.log("ERROR", error);
             } else {
-              console.log("Line added into message tabel!");
+              console.log("Line added into messages tabel!");
             }
           }
         );
@@ -358,15 +421,7 @@ db.run(
     } else {
       console.log("---> Table projects created!");
 
-      const projects = [
-        {
-          id: "1",
-          img: "/img/stylization-minnie-mouse.jpg",
-          name: "Minnie Mouse Bow",
-          description: "Minnie Mouse Bow",
-          date: "2023-02-04",
-        },
-      ];
+      const projects = [];
 
       projects.forEach((oneProject) => {
         db.run(
@@ -391,6 +446,7 @@ db.run(
   }
 );
 
+// Server up and running
 app.listen(port, () => {
   console.log("Server running and listening on port 2003...");
 });

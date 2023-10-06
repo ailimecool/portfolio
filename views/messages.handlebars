@@ -1,0 +1,19 @@
+<main>
+  <div>
+    {{#if dbError}}
+      <div>Sorry technical issues! <br /> {{theError}}</div>
+    {{else}}
+
+      {{#each messages}}
+
+        <h1>{{messagename}}{{messagesurname}}</h1>
+        <p>{{message}}</p>
+        <p>{{messageemail}}</p>
+        <p>{{messagedate}}</p>
+
+        <a href="/messages/delete/{{messageid}}">DELETE</a>
+
+      {{/each}}
+    {{/if}}
+  </div>
+</main>

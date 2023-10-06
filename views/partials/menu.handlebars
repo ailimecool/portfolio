@@ -3,7 +3,12 @@
     <a class="nav-item" href="/">HOME</a>
     <a class="nav-item1" href="/projects">MY WORK</a>
     <a class="nav-item" href="/about-me">ABOUT ME</a>
-    <a class="nav-item1" href="/contact">CONTACT</a>
+
+    {{#if isLoggedIn}}
+      <a class="nav-item" href="/messages">MESSAGES</a>
+    {{else}}
+      <a class="nav-item" href="/contact">CONTACT</a>
+    {{/if}}
 
     {{#if isLoggedIn}}
       <a class="nav-item" href="/logout">LOG OUT</a>
