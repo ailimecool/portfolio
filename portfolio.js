@@ -131,12 +131,12 @@ app.post("/projects/new", (req, res) => {
   const newproject = [
     req.body.projectimg,
     req.body.projectname,
-    req.body.projectdesription,
+    req.body.projectdescription,
     req.body.projectdate,
   ];
   if (req.session.isLoggedIn === true && req.session.isAdmin === true) {
     db.run(
-      "INSERT INTO projects (projectimg, projectname, projectdesription, projectdate) VALUES (?,?,?,?)",
+      "INSERT INTO projects (projectimg, projectname, projectdescription, projectdate) VALUES (?,?,?,?)",
       newproject,
       (error) => {
         if (error) {
@@ -145,7 +145,7 @@ app.post("/projects/new", (req, res) => {
           console.log("Line added into the projects table!");
         }
 
-        res.render("/projects");
+        res.redirect("/projects");
       }
     );
   } else {
@@ -197,7 +197,7 @@ app.post("/login", (req, res) => {
   console.log("PASSWORD: ", password);
 
   if (username === "emilia.fredriksson" && password === "WebDev") {
-    console.log("Emilia is logger in!");
+    console.log("Emilia is logged in!");
     req.session.isAdmin = true;
     req.session.isLoggedIn = true;
     req.session.name = "Emilia";
@@ -225,7 +225,7 @@ db.run(
   "CREATE TABLE user(userid INTEGER PRIMARY KEY AUTOINCREMENT, userusername TEXT NOT NULL, userpassword TEXT NOT NULL, useremail TEXT NOT NULL)",
   (error) => {
     if (error) {
-      console.log("ERROR1 ", error);
+      console.log("ERROR ", error);
     } else {
       console.log("---> Table user created!");
 
@@ -244,7 +244,7 @@ db.run(
           [oneUser.id, oneUser.username, oneUser.password, oneUser.email],
           (error) => {
             if (error) {
-              console.log("ERROR 11", error);
+              console.log("ERROR", error);
             } else {
               console.log("Line added into user tabel!");
             }
@@ -259,7 +259,7 @@ db.run(
   "CREATE TABLE messages(messageid INTEGER PRIMARY KEY AUTOINCREMENT, messagename TEXT NOT NULL, messagesurname TEXT NOT NULL, messageemail TEXT NOT NULL, messagemessage TEXT NOT NULL, messagedate TEXT NOT NULL)",
   (error) => {
     if (error) {
-      console.log("ERROR 2 ", error);
+      console.log("ERROR", error);
     } else {
       console.log("---> Table messages created!");
 
@@ -278,7 +278,7 @@ db.run(
           ],
           (error) => {
             if (error) {
-              console.log("ERROR 22", error);
+              console.log("ERROR", error);
             } else {
               console.log("Line added into message tabel!");
             }
@@ -293,7 +293,7 @@ db.run(
   "CREATE TABLE projects (projectid INTEGER PRIMARY KEY AUTOINCREMENT, projectimg TEXT NOT NULL, projectname TEXT NOT NULL, projectdescription TEXT NOT NULL, projectdate REAL NOT NULL)",
   (error) => {
     if (error) {
-      console.log("ERROR 3", error);
+      console.log("ERROR", error);
     } else {
       console.log("---> Table projects created!");
 
@@ -301,21 +301,15 @@ db.run(
         {
           id: "1",
           img: "/img/stylization-minnie-mouse.jpg",
-          name: "Stylization Minnie Mouse",
-          description:
-            "This was a school assignment my first year on the New Media Design program. We were supposed to make a stylization of whatever we wanted, with the help of illustrator. I choose to do Minnie Mouse bow because it is something that reminded me of my childhood and that I thought that I was able to do in the timeframe.",
-          date: "2022-10-03",
+          name: "Minnie Mouse Bow",
+          description: "Minnie Mouse Bow",
+          date: "2023-02-04",
         },
-        //   ask on lab why they change from "" to blue
-        { id: "2", img: "", name: "", description: "", date: "" },
-        { id: "3", img: "", name: "", description: "", date: "" },
-        { id: "4", img: "", name: "", description: "", date: "" },
-        { id: "5", img: "", name: "", description: "", date: "" },
       ];
 
       projects.forEach((oneProject) => {
         db.run(
-          "INSERT INTO projects(projectid, projectimg, projectname, projectdescription, projectdate) values (?,?,?,?,?)",
+          "INSERT INTO projects (projectid, projectimg, projectname, projectdescription, projectdate) values (?,?,?,?,?)",
           [
             oneProject.id,
             oneProject.img,
@@ -325,7 +319,7 @@ db.run(
           ],
           (error) => {
             if (error) {
-              console.log("ERROR 33", error);
+              console.log("ERROR", error);
             } else {
               console.log("Line added into project tabel!");
             }
