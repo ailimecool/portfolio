@@ -1,0 +1,42 @@
+<main>
+  <h1>New roject</h1>
+
+  {{#if isLoggedIn}}
+    {{#if isAdmin}}
+      <form action="/projects/new" method="post">
+        <input
+          type="text"
+          name="projectimg"
+          id="projectimg"
+          placeholder="/img/"
+          required="required"
+        />
+        <input
+          type="text"
+          name="projectname"
+          id="projectname"
+          placeholder="Project name"
+          required="required"
+        />
+        <input
+          type="text"
+          name="projectdesription"
+          id="projectdesription"
+          placeholder="Project desription"
+          required="required"
+        />
+        <input
+          type="date"
+          name="projectdate"
+          id="projectdate"
+          required="required"
+        />
+
+        <input type="submit" value="Add project" />
+
+        {{! if project has tags ex illstrator but its going in to a different table how do i do?  }}
+      </form>
+    {{/if}}
+  {{/if}}
+
+</main>

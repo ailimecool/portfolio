@@ -78,6 +78,81 @@ app.get("/projects", function (req, res) {
   });
 });
 
+app.get("/projects/delete/:id", (req, res) => {
+  const id = req.params.id;
+  if (req.session.isLoggedIn === true && req.session.isAdmin === true) {
+    db.run(
+      "DELETE FROM projects WHERE projectid=?",
+      [id],
+      function (error, theProjects) {
+        if (error) {
+          const model = {
+            dbError: true,
+            theError: error,
+            isLoggedIn: req.session.isLoggedIn,
+            name: req.session.name,
+            isAdmin: req.session.isAdmin,
+          };
+
+          res.render("home.handlebars", model);
+        } else {
+          const model = {
+            dbError: false,
+            theError: "",
+            isLoggedIn: req.session.isLoggedIn,
+            name: req.session.name,
+            isAdmin: req.session.isAdmin,
+          };
+
+          res.render("home.handlebars", model);
+        }
+      }
+    );
+  } else {
+    res.redirect("/login");
+  }
+});
+
+app.get("/projects/new", (req, re) => {
+  if (req.session.isLoggedIn === true && rq.session.isAdmin === true) {
+    const model = {
+      isLoggedIn: req.session.isLoggedIn,
+      name: req.session.name,
+      isAdmin: req.session.isAdmin,
+    };
+
+    res.render("new-project.handlebars", model);
+  } else {
+    res.redirect("/login");
+  }
+});
+
+app.post("/projects/new", (req, res) => {
+  const newproject = [
+    req.body.projectimg,
+    req.body.projectname,
+    req.body.projectdesription,
+    req.body.projectdate,
+  ];
+  if (req.session.isLoggedIn === true && req.session.isAdmin === true) {
+    db.run(
+      "INSERT INTO projects (projectimg, projectname, projectdesription, projectdate) VALUES (?,?,?,?)",
+      newproject,
+      (error) => {
+        if (error) {
+          console.log("ERROR: ", error);
+        } else {
+          console.log("Line added into the projects table!");
+        }
+
+        res.render("/projects");
+      }
+    );
+  } else {
+    res.redirect("/login");
+  }
+});
+
 app.get("/project-page", function (req, res) {
   const model = {
     isLoggedIn: req.session.isLoggedIn,
