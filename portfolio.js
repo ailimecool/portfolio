@@ -2,6 +2,7 @@ const express = require("express");
 const { engine } = require("express-handlebars");
 const port = 2003;
 const app = express();
+const sqlite3 = require("sqlite3");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const connectSqlite3 = require("connect-sqlite3");
@@ -113,14 +114,13 @@ app.get("/projects/delete/:id", (req, res) => {
   }
 });
 
-app.get("/projects/new", (req, re) => {
-  if (req.session.isLoggedIn === true && rq.session.isAdmin === true) {
+app.get("/projects/new", (req, res) => {
+  if (req.session.isLoggedIn === true && req.session.isAdmin === true) {
     const model = {
       isLoggedIn: req.session.isLoggedIn,
       name: req.session.name,
       isAdmin: req.session.isAdmin,
     };
-
     res.render("new-project.handlebars", model);
   } else {
     res.redirect("/login");
@@ -219,14 +219,13 @@ app.get("/logout", (req, res) => {
   res.redirect("/");
 });
 
-const sqlite3 = require("sqlite3");
 const db = new sqlite3.Database("database-portfolio.db");
 
 db.run(
-  "CREATE TABLE user(userid INTEGER PRiMARY KEY, userusername TEXT NOT NULL, userpassword TEXT NOT NULL, useremail TEXT NOT NULL)",
+  "CREATE TABLE user(userid INTEGER PRIMARY KEY AUTOINCREMENT, userusername TEXT NOT NULL, userpassword TEXT NOT NULL, useremail TEXT NOT NULL)",
   (error) => {
     if (error) {
-      console.log("ERROR", error);
+      console.log("ERROR1 ", error);
     } else {
       console.log("---> Table user created!");
 
@@ -245,7 +244,7 @@ db.run(
           [oneUser.id, oneUser.username, oneUser.password, oneUser.email],
           (error) => {
             if (error) {
-              console.log("ERROR", error);
+              console.log("ERROR 11", error);
             } else {
               console.log("Line added into user tabel!");
             }
@@ -257,10 +256,10 @@ db.run(
 );
 
 db.run(
-  "CREATE TABLE messages(messageid INTEGER PRIMARY KEY, messagename TEXT NOT NULL, messagesurname TEXT NOT NULL, messageemail TEXT NOT NULL, messagemessage TEXT NOT NULL, messagedate TEXT NOT NULL)",
+  "CREATE TABLE messages(messageid INTEGER PRIMARY KEY AUTOINCREMENT, messagename TEXT NOT NULL, messagesurname TEXT NOT NULL, messageemail TEXT NOT NULL, messagemessage TEXT NOT NULL, messagedate TEXT NOT NULL)",
   (error) => {
     if (error) {
-      console.log("ERROR", error);
+      console.log("ERROR 2 ", error);
     } else {
       console.log("---> Table messages created!");
 
@@ -279,7 +278,7 @@ db.run(
           ],
           (error) => {
             if (error) {
-              console.log("ERROR", error);
+              console.log("ERROR 22", error);
             } else {
               console.log("Line added into message tabel!");
             }
@@ -291,10 +290,10 @@ db.run(
 );
 
 db.run(
-  "CREATE TABLE projects (projectid INTEGER PRIMARY KEY, projectimg TEXT NOT NULL, projectname TEXT NOT NULL, projectdescription TEXT NOT NULL, projectdate REAL NOT NULL)",
+  "CREATE TABLE projects (projectid INTEGER PRIMARY KEY AUTOINCREMENT, projectimg TEXT NOT NULL, projectname TEXT NOT NULL, projectdescription TEXT NOT NULL, projectdate REAL NOT NULL)",
   (error) => {
     if (error) {
-      console.log("ERROR", error);
+      console.log("ERROR 3", error);
     } else {
       console.log("---> Table projects created!");
 
@@ -326,71 +325,9 @@ db.run(
           ],
           (error) => {
             if (error) {
-              console.log("ERROR", error);
+              console.log("ERROR 33", error);
             } else {
               console.log("Line added into project tabel!");
-            }
-          }
-        );
-      });
-    }
-  }
-);
-
-db.run(
-  "CREATE TABLE projectTag (projecttagid INTEGER PRIMARY KEY, projectid INTEGER, tagid INTEGER, FOREIGN KEY (projectid) REFERENCES projects, FOREIGN KEY (tagid) REFERENCES tag",
-  (error) => {
-    if (error) {
-      console.log("ERROR", error);
-    } else {
-      console.log("---> Table projectTag created!");
-
-      const projectTag = [];
-
-      projectTag.forEach((oneProjectTag) => {
-        db.run(
-          "INSERT INTO projectTag(projecttagid, projectid, tagid) values (?,?, ?)",
-          [oneProjectTag.id, oneProjectTag.projectid, oneProjectTag.tagid],
-          (error) => {
-            if (error) {
-              console.log("ERROR", error);
-            } else {
-              console.log("Line added into projectTag tabel!");
-            }
-          }
-        );
-      });
-    }
-  }
-);
-
-db.run(
-  "CREATE TABLE tag (tagid INTEGER PRIMARY KEY, tagtagname TEXT NOT NULL",
-  (error) => {
-    if (error) {
-      console.log("ERROR", error);
-    } else {
-      console.log("---> Table tag created!");
-
-      const tag = [
-        { id: "1", tagname: "HTML" },
-        { id: "2", tagname: "CSS" },
-        { id: "3", tagname: "JavaScript" },
-        { id: "4", tagname: "Photoshop" },
-        { id: "5", tagname: "Illustrator" },
-        { id: "6", tagname: "InDesign" },
-        { id: "7", tagname: "Figma" },
-      ];
-
-      tag.forEach((oneTag) => {
-        db.run(
-          "INSERT INTO tag(tagid, tagtaganem) values (?,?)",
-          [oneTag.id, oneTag.tagname],
-          (error) => {
-            if (error) {
-              console.log("ERROR", error);
-            } else {
-              console.log("Line added into tag tabel!");
             }
           }
         );
