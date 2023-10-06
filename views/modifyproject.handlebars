@@ -1,0 +1,48 @@
+<main>
+  <h1>Modify project</h1>
+  <div>
+    {{#if isLoggedIn}}
+      {{#if isAdmin}}
+
+        <form action="/projects/update/{{project.projectid}}" method="post">
+          <fieldset>
+            <label for="projectimg">Project image</label>
+            <input
+              type="text"
+              name="projectimg"
+              id="projectimg"
+              value="{{project.projectimg}}"
+              required="required"
+            />
+            <label for="projectname">Project name</label>
+            <input
+              type="text"
+              name="projectname"
+              id="projectname"
+              value="{{project.projectname}}"
+              required="required"
+            />
+            <label for="projectdescription">Project description</label>
+            <input
+              type="text"
+              name="projectdescription"
+              id="projectdescription"
+              value="{{project.projectdescription}}"
+              required="required"
+            />
+            <label for="projectdate">Project date</label>
+            <input
+              type="date"
+              name="projectdate"
+              id="projectdate"
+              value="{{project.projectdate}}"
+              required="required"
+            />
+            <input type="submit" value="Submit changes" />
+          </fieldset>
+        </form>
+      {{/if}}
+    {{/if}}
+  </div>
+
+</main>

@@ -17,7 +17,7 @@
         <p>{{projectdescription}}</p>
 
         <div>
-          {{#if isAdmin}}
+          {{#if ../isAdmin}}
             <a href="/projects/update/{{projectid}}">MODIFY</a>
             <a href="/projects/delete/{{projectid}}">DELETE</a>
           {{/if}}

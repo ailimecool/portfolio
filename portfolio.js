@@ -49,7 +49,7 @@ app.get("/work-page", function (req, res) {
   res.render("work-page.handlebars", model);
 });
 
-app.get("/projects", function (req, res) {
+app.get("/projects", (req, res) => {
   db.all("SELECT * FROM projects", function (error, theProjects) {
     if (error) {
       const model = {
@@ -62,7 +62,7 @@ app.get("/projects", function (req, res) {
         isAdmin: req.session.isAdmin,
       };
 
-      res.render("work-page.handlebars", model);
+      res.render("projects.handlebars", model);
     } else {
       const model = {
         dbError: false,
@@ -74,7 +74,7 @@ app.get("/projects", function (req, res) {
         isAdmin: req.session.isAdmin,
       };
 
-      res.render("work-page.handlebars", model);
+      res.render("projects.handlebars", model);
     }
   });
 });
@@ -151,6 +151,40 @@ app.post("/projects/new", (req, res) => {
   } else {
     res.redirect("/login");
   }
+});
+
+app.get("/projects/update/:id", (req, res) => {
+  const id = req.params.id;
+  db.get(
+    "SELECT * FROM projects WHERE projectid=?",
+    [id],
+    function (error, theProject) {
+      if (error) {
+        console.log("ERROR", error);
+        const model = {
+          dbError: true,
+          theError: error,
+          project: {},
+          isLoggedIn: req.session.isLoggedIn,
+          name: req.session.name,
+          isAdmin: req.session.isAdmin,
+        };
+
+        res.render("modifyproject.handlebars", model);
+      } else {
+        const model = {
+          dbError: false,
+          theError: "",
+          project: theProject,
+          isLoggedIn: req.session.isLoggedIn,
+          name: req.session.name,
+          isAdmin: req.session.isAdmin,
+        };
+
+        res.render("modifyproject.handlebars", model);
+      }
+    }
+  );
 });
 
 app.get("/project-page", function (req, res) {
