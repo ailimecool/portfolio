@@ -95,7 +95,7 @@ app.get("/projects/delete/:id", (req, res) => {
             isAdmin: req.session.isAdmin,
           };
 
-          res.render("home.handlebars", model);
+          res.render("projects.handlebars", model);
         } else {
           const model = {
             dbError: false,
@@ -105,7 +105,7 @@ app.get("/projects/delete/:id", (req, res) => {
             isAdmin: req.session.isAdmin,
           };
 
-          res.render("home.handlebars", model);
+          res.render("projects.handlebars", model);
         }
       }
     );
@@ -185,6 +185,33 @@ app.get("/projects/update/:id", (req, res) => {
       }
     }
   );
+});
+
+app.post("/projects/update/:id", (req, res) => {
+  const id = req.params.id;
+  const updateproject = [
+    req.body.projectimg,
+    req.body.projectname,
+    req.body.projectdescription,
+    req.body.projectdate,
+    id,
+  ];
+  if (req.session.isLoggedIn === true && req.session.isAdmin === true) {
+    db.run(
+      "UPDATE projects SET projectimg=?, projectname=?, projectdescription=?, projectdate=? WHERE projectid=?",
+      updateproject,
+      (error) => {
+        if (error) {
+          console.log("ERROR", error);
+        } else {
+          console.log("Project updated!");
+        }
+        res.redirect("/projects");
+      }
+    );
+  } else {
+    res.redirect("/login");
+  }
 });
 
 app.get("/project-page", function (req, res) {
