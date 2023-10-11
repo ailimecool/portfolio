@@ -12,10 +12,10 @@
     {{#each projects}}
       <div>
 
-        <img src="{{projectimg}}" alt="{{projectimg}}" />
-        <h1>{{projectname}}</h1>
-        <p>{{projectdescription}}</p>
-        <p>{{projectdate}}</p>
+        <img class="project-img" src="{{projectimg}}" alt="{{projectimg}}" />
+        <h1 class="project-name">{{projectname}}</h1>
+        <p class="project-description">{{projectdescription}}</p>
+        <p class="project-date">{{projectdate}}</p>
 
         <div>
           {{#if ../isAdmin}}

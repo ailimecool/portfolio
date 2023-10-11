@@ -7,6 +7,7 @@ const bodyParser = require("body-parser");
 const session = require("express-session");
 const connectSqlite3 = require("connect-sqlite3");
 const cookieParser = require("cookie-parser");
+const bcrypt = require("bcrypt");
 
 app.engine("handlebars", engine());
 
@@ -33,6 +34,61 @@ app.use(
 // Homepage
 app.get("/", function (req, res) {
   console.log("SESSION: ", req.session);
+
+  // saltRounds = 12;
+  // bcrypt.hash("WebDev", saltRounds, (err, hash) => {
+  //   if (err) {
+  //     console.log("Error encrypting the password: ", err);
+  //   } else {
+  //     console.log("Hashed password(GENERATE only ONCE): ", hash);
+  //   }
+  // });
+
+  // saltRounds = 12;
+  // bcrypt.hash("WebDevJerome", saltRounds, (err, hash) => {
+  //   if (err) {
+  //     console.log("Error encrypting the password: ", err);
+  //   } else {
+  //     console.log("Hashed password(GENERATE only ONCE): ", hash);
+  //   }
+  // });
+
+  // saltRounds = 12;
+  // bcrypt.hash("WebDevJasmin", saltRounds, (err, hash) => {
+  //   if (err) {
+  //     console.log("Error encrypting the password: ", err);
+  //   } else {
+  //     console.log("Hashed password(GENERATE only ONCE): ", hash);
+  //   }
+  // });
+
+  // saltRounds = 12;
+  // bcrypt.hash("WebDevLinus", saltRounds, (err, hash) => {
+  //   if (err) {
+  //     console.log("Error encrypting the password: ", err);
+  //   } else {
+  //     console.log("Hashed password(GENERATE only ONCE): ", hash);
+  //   }
+  // });
+
+  // saltRounds = 12;
+  // bcrypt.hash("WebDevMira", saltRounds, (err, hash) => {
+  //   if (err) {
+  //     console.log("Error encrypting the password: ", err);
+  //   } else {
+  //     console.log("Hashed password(GENERATE only ONCE): ", hash);
+  //   }
+  // });
+
+  // saltRounds = 12;
+  // bcrypt.hash("WebDevSusanne", saltRounds, (err, hash) => {
+  //   if (err) {
+  //     console.log("Error encrypting the password: ", err);
+  //   } else {
+  //     console.log("Hashed password(GENERATE only ONCE): ", hash);
+  //   }
+  // });
+
   const model = {
     isLoggedIn: req.session.isLoggedIn,
     name: req.session.name,
@@ -447,8 +503,44 @@ db.run(
         {
           id: "1",
           username: "emilia.fredriksson",
-          password: "WebDev",
+          password:
+            "$2b$12$x7XpmXSjhT9k.QEDP6YdnedBOJLKamZatY.hY6Ol4Vk0mkVvSYXQW",
           email: "frem22pu@student.ju.se",
+        },
+        {
+          id: "2",
+          username: "jerome.landre",
+          password:
+            "$2b$12$ABmpbbk2Mi8S6f9wKFUq9.N.gJQkX6w50yfcSYs0tkW.lFB07TvYq",
+          email: "jerome.landre@ju.se",
+        },
+        {
+          id: "3",
+          username: "jasmin.jakupovic",
+          password:
+            "$2b$12$mRFYNF59wDho4vvMOmcJ8eKpw0xcv6RLFc3XV4E8sEwiQWBhy7tFy",
+          email: "jasmin.jakupovic@ju.se",
+        },
+        {
+          id: "4",
+          username: "linus.rudbeck",
+          password:
+            "$2b$12$IdzTKCif2QgfKa0YRm5k0OGZDy5iZ7.wfHS5O5/0pEjsyevT4Xsr6",
+          email: "linus.rudbeck@ju.se",
+        },
+        {
+          id: "5",
+          username: "mira.pop",
+          password:
+            "$2b$12$sZ.59rcSBk5QczPAFluOGeX/n6snhJOocaCkiJGIHk25T62MmjCsi",
+          email: "mira.pop@ju.se",
+        },
+        {
+          id: "6",
+          username: "susanne.smithberger",
+          password:
+            "$2b$12$0qcGzOeUC3X5nDHFx5Vjf.5sMsuoglfrVbV5Hzo4rentT.FLPGFBS",
+          email: "susanne.smithberger@ju.se",
         },
       ];
 
