@@ -477,16 +477,7 @@ db.run(
     } else {
       console.log("---> Table messages created!");
 
-      const messages = [
-        {
-          id: "1",
-          name: "Emilia",
-          surname: "Fredriksson",
-          email: "frem22pu@student.ju.se",
-          message: "test",
-          date: "2023-10-06",
-        },
-      ];
+      const messages = [];
 
       messages.forEach((oneMessage) => {
         db.run(
