@@ -52,18 +52,8 @@ a:hover {
 }
 
 /* home page */
-.welcome {
-  grid-column-start: 1;
-  grid-column-end: 3;
-}
-
-.welcome-pic {
-  grid-column-start: 3;
-  grid-column-end: 5;
-}
-
 .welcome-pic1 {
-  width: 20rem;
+  width: 30rem;
   height: fit-content;
   border-radius: 3rem;
 }
@@ -141,4 +131,39 @@ a:hover {
 #login-button {
   grid-column-start: 2;
   grid-column-end: 4;
+}
+
+.project-border {
+  border: #ffffff;
+  border-radius: 1rem;
+  border-style: dotted;
+  padding: 1rem;
+  margin: 1rem;
+}
+
+.project-img {
+  width: 60%;
+  height: fit-content;
+  border-radius: 0.5rem;
+}
+
+.project-name {
+  font-family: fantasy;
+  font-size: large;
+  color: #ff8fa5;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.project-description {
+  font-size: small;
+  color: #ffffff;
+}
+
+.project-date {
+  font-size: x-small;
+  color: #ffffff;
+  text-align: right;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }

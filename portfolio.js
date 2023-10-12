@@ -464,6 +464,12 @@ app.post("/login", (req, res) => {
   console.log("LOGIN: ", username);
   console.log("PASSWORD: ", password);
 
+  // console.log("URL: ", req.url);
+  // var post_data = JSON.stringify(req.body);
+  // console.log("POST data", post_data);
+
+  // const { username, password } = req.body;
+
   if (username === "emilia.fredriksson" && password === "WebDev") {
     console.log("Emilia is logged in!");
     req.session.isAdmin = true;
@@ -477,6 +483,33 @@ app.post("/login", (req, res) => {
     req.session.name = "";
     res.redirect("/login");
   }
+
+  // db.get("SELECT * FROM users WHERE username=?", [username], (err, user) => {
+  //   if (err) {
+  //     console.log("Error while logging in!");
+  //     res.status(500).send({ error: "server error" });
+  //   } else if (!user) {
+  //     res.status(400).send({ Error: "user not found" });
+  //   } else {
+  //     const passwordMatch = bcrypt.compareSync(password, user.userpassword);
+  //     if (passwordMatch) {
+  //       if (username === emilia.fredriksson) {
+  //         req.session.isAdmin = true;
+  //       } else {
+  //         req.session.isAdmin = false;
+  //       }
+  //       req.session.user = user;
+  //       req.session.isLoggedIn = true;
+  //       req.session.name = username;
+  //       res.redirect("/");
+  //     } else {
+  //       console.log("Wrong username or password!");
+  //       req.session.isLoggedIn = false;
+  //       req.session.name = "";
+  //       res.redirect("/login");
+  //     }
+  //   }
+  // });
 });
 
 // Logout funciton
