@@ -1,0 +1,27 @@
+<main>
+  <section>
+     {{#if dbError}}
+    <div>Sorry technical issues! <br /> {{theError}}</div>
+  {{else}}
+
+  <div><a href="/projects">GO BACK</a></div>
+
+{{!-- shouldn't be eah project should ba a specific project being clicked --}}
+    {{#each projects}}
+        <img class="project-img" src="{{projectimg}}" alt="{{projectimg}}" />
+
+        <div>
+            <h1 class="project-name">{{projectname}}</h1>
+            <p class="project-description">{{projectdescription}}</p>
+            <p class="project-date">{{projectdate}}</p>
+        </div>
+        <div>
+          {{#if ../isAdmin}}
+            <a href="/projects/update/{{projectid}}">MODIFY</a>
+            <a href="/projects/delete/{{projectid}}">DELETE</a>
+          {{/if}}
+        </div>
+    {{/each}}
+  {{/if}}
+  </section>
+</main>

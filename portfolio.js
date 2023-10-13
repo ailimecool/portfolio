@@ -277,15 +277,15 @@ app.post("/projects/update/:id", (req, res) => {
   }
 });
 
-// Eventually seperate project pages
-// app.get("/project-page", function (req, res) {
-//   const model = {
-//     isLoggedIn: req.session.isLoggedIn,
-//     name: req.session.name,
-//     isAdmin: req.session.isAdmin,
-//   };
-//   res.render("project-page.handlebars", model);
-// });
+// Seperate project pages
+app.get("/project-page", function (req, res) {
+  const model = {
+    isLoggedIn: req.session.isLoggedIn,
+    name: req.session.name,
+    isAdmin: req.session.isAdmin,
+  };
+  res.render("project-page.handlebars", model);
+});
 
 // About page
 app.get("/about-me", function (req, res) {
@@ -377,7 +377,7 @@ app.get("/messages", (req, res) => {
   });
 });
 
-// Dlete messages
+// Delete messages
 app.get("/messages/delete/:id", (req, res) => {
   const id = req.params.id;
   if (req.session.isLoggedIn === true && req.session.isAdmin === true) {
@@ -464,52 +464,36 @@ app.post("/login", (req, res) => {
   console.log("LOGIN: ", username);
   console.log("PASSWORD: ", password);
 
-  // console.log("URL: ", req.url);
-  // var post_data = JSON.stringify(req.body);
-  // console.log("POST data", post_data);
+  // if (username === "emilia.fredriksson" && password === "WebDev") {
+  //   console.log("Emilia is logged in!");
+  //   req.session.isAdmin = true;
+  //   req.session.isLoggedIn = true;
+  //   req.session.name = "Emilia";
+  //   res.redirect("/");
+  // } else {
+  //   console.log("Wrong user and/or password!");
+  //   req.session.isAdmin = false;
+  //   req.session.isLoggedIn = false;
+  //   req.session.name = "";
+  //   res.redirect("/login");
+  // }
 
-  // const { username, password } = req.body;
-
-  if (username === "emilia.fredriksson" && password === "WebDev") {
-    console.log("Emilia is logged in!");
-    req.session.isAdmin = true;
-    req.session.isLoggedIn = true;
-    req.session.name = "Emilia";
-    res.redirect("/");
-  } else {
-    console.log("Wrong user and/or password!");
-    req.session.isAdmin = false;
-    req.session.isLoggedIn = false;
-    req.session.name = "";
-    res.redirect("/login");
-  }
-
-  // db.get("SELECT * FROM users WHERE username=?", [username], (err, user) => {
-  //   if (err) {
-  //     console.log("Error while logging in!");
-  //     res.status(500).send({ error: "server error" });
-  //   } else if (!user) {
-  //     res.status(400).send({ Error: "user not found" });
-  //   } else {
-  //     const passwordMatch = bcrypt.compareSync(password, user.userpassword);
-  //     if (passwordMatch) {
-  //       if (username === emilia.fredriksson) {
-  //         req.session.isAdmin = true;
-  //       } else {
-  //         req.session.isAdmin = false;
-  //       }
-  //       req.session.user = user;
-  //       req.session.isLoggedIn = true;
-  //       req.session.name = username;
-  //       res.redirect("/");
-  //     } else {
-  //       console.log("Wrong username or password!");
-  //       req.session.isLoggedIn = false;
-  //       req.session.name = "";
-  //       res.redirect("/login");
-  //     }
-  //   }
-  // });
+  db.get("SELECT * FROM user WHERE username=?", [username], (err, user) => {
+    bcrypt.compare(password, user.userpassword, (err, result) => {
+      if (err) {
+        console.log("Error in comparing encryption: ", err);
+      } else if (result === true) {
+        conosle.log("User logged in!");
+        req.session.isAdmin = user.userid === 1;
+        req.session.isLoggedIn = true;
+        req.session.name = user.username;
+        res.redirect("/");
+      } else {
+        console.log("User not logged in!");
+        res.redirect("/login");
+      }
+    });
+  });
 });
 
 // Logout funciton
