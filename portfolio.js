@@ -32,17 +32,17 @@ app.use(
 );
 
 // Homepage
-app.get("/", function (req, res) {
+app.get("/", (req, res) => {
   console.log("SESSION: ", req.session);
 
-  // saltRounds = 12;
-  // bcrypt.hash("WebDev", saltRounds, (err, hash) => {
-  //   if (err) {
-  //     console.log("Error encrypting the password: ", err);
-  //   } else {
-  //     console.log("Hashed password(GENERATE only ONCE): ", hash);
-  //   }
-  // });
+  saltRounds = 12;
+  bcrypt.hash("WebDev", saltRounds, (err, hash) => {
+    if (err) {
+      console.log("Error encrypting the password: ", err);
+    } else {
+      console.log("Hashed password(GENERATE only ONCE): ", hash);
+    }
+  });
 
   // saltRounds = 12;
   // bcrypt.hash("WebDevJerome", saltRounds, (err, hash) => {
@@ -98,7 +98,7 @@ app.get("/", function (req, res) {
 });
 
 // Project page
-app.get("/project", function (req, res) {
+app.get("/project", (req, res) => {
   const model = {
     isLoggedIn: req.session.isLoggedIn,
     name: req.session.name,
@@ -278,7 +278,7 @@ app.post("/projects/update/:id", (req, res) => {
 });
 
 // Seperate project pages
-app.get("/project-page", function (req, res) {
+app.get("/project-page", (req, res) => {
   const model = {
     isLoggedIn: req.session.isLoggedIn,
     name: req.session.name,
@@ -288,7 +288,7 @@ app.get("/project-page", function (req, res) {
 });
 
 // About page
-app.get("/about-me", function (req, res) {
+app.get("/about-me", (req, res) => {
   const model = {
     isLoggedIn: req.session.isLoggedIn,
     name: req.session.name,
@@ -298,7 +298,7 @@ app.get("/about-me", function (req, res) {
 });
 
 // Contact page
-app.get("/contact", function (req, res) {
+app.get("/contact", (req, res) => {
   const model = {
     isLoggedIn: req.session.isLoggedIn,
     name: req.session.name,
@@ -448,7 +448,7 @@ app.get("/messages/delete/:id", (req, res) => {
 });
 
 // Login function
-app.get("/login", function (req, res) {
+app.get("/login", (req, res) => {
   const model = {
     isLoggedIn: req.session.isLoggedIn,
     name: req.session.name,
@@ -478,21 +478,27 @@ app.post("/login", (req, res) => {
   //   res.redirect("/login");
   // }
 
-  db.get("SELECT * FROM user WHERE username=?", [username], (err, user) => {
-    bcrypt.compare(password, user.userpassword, (err, result) => {
-      if (err) {
-        console.log("Error in comparing encryption: ", err);
-      } else if (result === true) {
-        conosle.log("User logged in!");
-        req.session.isAdmin = user.userid === 1;
-        req.session.isLoggedIn = true;
-        req.session.name = user.username;
-        res.redirect("/");
-      } else {
-        console.log("User not logged in!");
-        res.redirect("/login");
-      }
-    });
+  db.get("SELECT * FROM user WHERE userusername=?", [username], (err, user) => {
+    if (err) {
+      console.log("Error in comparing encryption: ", err);
+      res.redirect("/login");
+    } else {
+      bcrypt.compare(password, user.userpassword, (err, result) => {
+        if (err) {
+          console.log("Error in comparing encryption: ", err);
+          res.redirect("/login");
+        } else if (result === true) {
+          console.log("User logged in!");
+          req.session.isAdmin = user.userid === 1;
+          req.session.isLoggedIn = true;
+          req.session.name = user.username;
+          res.redirect("/");
+        } else {
+          console.log("User not logged in!");
+          res.redirect("/login");
+        }
+      });
+    }
   });
 });
 
@@ -521,7 +527,7 @@ db.run(
           id: "1",
           username: "emilia.fredriksson",
           password:
-            "$2b$12$x7XpmXSjhT9k.QEDP6YdnedBOJLKamZatY.hY6Ol4Vk0mkVvSYXQW",
+            "$2b$12$cimpnOHeKcOF2lN8Dw22geqk8A2E52C2S8/cQBmD/kpKGTj0OTF0e",
           email: "frem22pu@student.ju.se",
         },
         {
