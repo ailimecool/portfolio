@@ -4,24 +4,24 @@
     <div>Sorry technical issues! <br /> {{theError}}</div>
   {{else}}
 
-  <div><a href="/projects">GO BACK</a></div>
+<div><a href="/projects">GO BACK</a></div>
 
-{{!-- shouldn't be eah project should ba a specific project being clicked --}}
-    {{#each projects}}
-        <img class="project-img" src="{{projectimg}}" alt="{{projectimg}}" />
+
+        <div><img class="project-img" src="{{proj.projectimg}}" alt="{{proj.projectimg}}" /></div>
 
         <div>
-            <h1 class="project-name">{{projectname}}</h1>
-            <p class="project-description">{{projectdescription}}</p>
-            <p class="project-date">{{projectdate}}</p>
+            <h1 class="project-name">{{proj.projectname}}</h1>
+            <p class="project-description">{{proj.projectdescription}}</p>
+            <p class="project-date">{{proj.projectdate}}</p>
         </div>
+
         <div>
-          {{#if ../isAdmin}}
-            <a href="/projects/update/{{projectid}}">MODIFY</a>
-            <a href="/projects/delete/{{projectid}}">DELETE</a>
-          {{/if}}
+            {{#if ../isAdmin}}
+                <a href="/projects/update/{{projectid}}">MODIFY</a>
+                <a href="/projects/delete/{{projectid}}">DELETE</a>
+            {{/if}}
         </div>
-    {{/each}}
+        
   {{/if}}
   </section>
 </main>

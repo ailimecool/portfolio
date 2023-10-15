@@ -35,59 +35,59 @@ app.use(
 app.get("/", (req, res) => {
   console.log("SESSION: ", req.session);
 
-  saltRounds = 12;
+  /*saltRounds = 12;
   bcrypt.hash("WebDev", saltRounds, (err, hash) => {
     if (err) {
       console.log("Error encrypting the password: ", err);
     } else {
       console.log("Hashed password(GENERATE only ONCE): ", hash);
     }
-  });
+  });*/
 
-  // saltRounds = 12;
-  // bcrypt.hash("WebDevJerome", saltRounds, (err, hash) => {
-  //   if (err) {
-  //     console.log("Error encrypting the password: ", err);
-  //   } else {
-  //     console.log("Hashed password(GENERATE only ONCE): ", hash);
-  //   }
-  // });
+  /*saltRounds = 12;
+  bcrypt.hash("WebDevJerome", saltRounds, (err, hash) => {
+    if (err) {
+      console.log("Error encrypting the password: ", err);
+    } else {
+      console.log("Hashed password(GENERATE only ONCE): ", hash);
+    }
+  });*/
 
-  // saltRounds = 12;
-  // bcrypt.hash("WebDevJasmin", saltRounds, (err, hash) => {
-  //   if (err) {
-  //     console.log("Error encrypting the password: ", err);
-  //   } else {
-  //     console.log("Hashed password(GENERATE only ONCE): ", hash);
-  //   }
-  // });
+  /*saltRounds = 12;
+  bcrypt.hash("WebDevJasmin", saltRounds, (err, hash) => {
+    if (err) {
+      console.log("Error encrypting the password: ", err);
+    } else {
+      console.log("Hashed password(GENERATE only ONCE): ", hash);
+    }
+  });*/
 
-  // saltRounds = 12;
-  // bcrypt.hash("WebDevLinus", saltRounds, (err, hash) => {
-  //   if (err) {
-  //     console.log("Error encrypting the password: ", err);
-  //   } else {
-  //     console.log("Hashed password(GENERATE only ONCE): ", hash);
-  //   }
-  // });
+  /*saltRounds = 12;
+  bcrypt.hash("WebDevLinus", saltRounds, (err, hash) => {
+    if (err) {
+      console.log("Error encrypting the password: ", err);
+    } else {
+      console.log("Hashed password(GENERATE only ONCE): ", hash);
+    }
+  });*/
 
-  // saltRounds = 12;
-  // bcrypt.hash("WebDevMira", saltRounds, (err, hash) => {
-  //   if (err) {
-  //     console.log("Error encrypting the password: ", err);
-  //   } else {
-  //     console.log("Hashed password(GENERATE only ONCE): ", hash);
-  //   }
-  // });
+  /*saltRounds = 12;
+  bcrypt.hash("WebDevMira", saltRounds, (err, hash) => {
+    if (err) {
+      console.log("Error encrypting the password: ", err);
+    } else {
+      console.log("Hashed password(GENERATE only ONCE): ", hash);
+    }
+  });*/
 
-  // saltRounds = 12;
-  // bcrypt.hash("WebDevSusanne", saltRounds, (err, hash) => {
-  //   if (err) {
-  //     console.log("Error encrypting the password: ", err);
-  //   } else {
-  //     console.log("Hashed password(GENERATE only ONCE): ", hash);
-  //   }
-  // });
+  /* saltRounds = 12;
+  bcrypt.hash("WebDevSusanne", saltRounds, (err, hash) => {
+    if (err) {
+      console.log("Error encrypting the password: ", err);
+    } else {
+      console.log("Hashed password(GENERATE only ONCE): ", hash);
+    }
+  });*/
 
   const model = {
     isLoggedIn: req.session.isLoggedIn,
@@ -285,6 +285,35 @@ app.get("/project-page", (req, res) => {
     isAdmin: req.session.isAdmin,
   };
   res.render("project-page.handlebars", model);
+});
+
+app.get("/project-page/:id", (req, res) => {
+  const id = req.params.id;
+  db.get("SELECT * FROM projects WHERE projectid=?", [id], (err, proj) => {
+    if (err) {
+      console.log(err);
+      const model = {
+        dbError: true,
+        theError: err,
+        proj: {},
+        isLoggedIn: req.session.isLoggedIn,
+        name: req.session.name,
+        isAdmin: req.session.isAdmin,
+      };
+
+      res.render("project-page.handlebars", model);
+    } else {
+      const model = {
+        proj: proj,
+        dbError: false,
+        theError: "",
+        isLoggedIn: req.session.isLoggedIn,
+        name: req.session.name,
+        isAdmin: req.session.isAdmin,
+      };
+      res.render("project-page.handlebars", model);
+    }
+  });
 });
 
 // About page
@@ -626,7 +655,24 @@ db.run(
     } else {
       console.log("---> Table projects created!");
 
-      const projects = [];
+      const projects = [
+        {
+          id: "1",
+          img: "/img/stylization-minnie-mouse.jpg",
+          name: "Stylization",
+          description:
+            "This was a school project that I made my first year on the university. I choose to do a stylization of Minnie Mouse and I choose to do her bow.",
+          date: "2023-08-06",
+        },
+        {
+          id: "2",
+          img: "/img/stilleben.jpg",
+          name: "Still life",
+          description:
+            "This was a school assignment where we were going to take a still life picture. I choose to do it with things that makes me calm and feel comfy.",
+          date: "2022-03-10",
+        },
+      ];
 
       projects.forEach((oneProject) => {
         db.run(
