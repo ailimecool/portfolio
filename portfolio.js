@@ -672,6 +672,30 @@ db.run(
             "This was a school assignment where we were going to take a still life picture. I choose to do it with things that makes me calm and feel comfy.",
           date: "2022-03-10",
         },
+        {
+          id: "3",
+          img: "/img/graphic-profile.jpg",
+          name: "Graphic profile",
+          description:
+            "This was a graphic profile that I created for an assignment the second year of high school.",
+          date: "2021-04-20",
+        },
+        {
+          id: "4",
+          img: "/img/street-photography.JPG",
+          name: "Street photography",
+          description:
+            "I took and edited this photo during a photocourse. It was challangeing and scary to take pictures of people as natural as possible.",
+          date: "2022-05-15",
+        },
+        {
+          id: "5",
+          img: "/img/frilans.jpg",
+          name: "Freelance assignment",
+          description:
+            "This was made during an assignment where we were going to practice being freelancers and working out of a project desription.",
+          date: "2021-08-30",
+        },
       ];
 
       projects.forEach((oneProject) => {
