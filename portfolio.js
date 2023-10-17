@@ -621,7 +621,48 @@ db.run(
     } else {
       console.log("---> Table messages created!");
 
-      const messages = [];
+      const messages = [
+        {
+          id: "1",
+          name: "Lucc",
+          surname: "Williams",
+          email: "lucc.williams@outlook.com",
+          message: "Hi! I am a test message.",
+          date: "2023-10-02",
+        },
+        {
+          id: "2",
+          name: "Maya",
+          surname: "Larssen",
+          email: "maya.larssen@gmail.se",
+          message: "Hi! I am also a test message.",
+          date: "2023-10-05",
+        },
+        {
+          id: "3",
+          name: "Oscar",
+          surname: "Andersson",
+          email: "oscar.andersson@mail.com",
+          message: "Hi! Guess what, I am also a test!",
+          date: "2023-10-07",
+        },
+        {
+          id: "4",
+          name: "Elijah",
+          surname: "Adams",
+          email: "elijah.adams@outlook.com",
+          message: "I am actually a question. How many test do you have now?",
+          date: "2023-10-14",
+        },
+        {
+          id: "5",
+          name: "Hannah",
+          surname: "Rasmunsson",
+          email: "hannah.rasmusson@gmail.com",
+          message: "Hello! Finally I am the last test!",
+          date: "2023-10-17",
+        },
+      ];
 
       messages.forEach((oneMessage) => {
         db.run(
