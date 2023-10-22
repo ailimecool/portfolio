@@ -493,20 +493,6 @@ app.post("/login", (req, res) => {
   console.log("LOGIN: ", username);
   console.log("PASSWORD: ", password);
 
-  // if (username === "emilia.fredriksson" && password === "WebDev") {
-  //   console.log("Emilia is logged in!");
-  //   req.session.isAdmin = true;
-  //   req.session.isLoggedIn = true;
-  //   req.session.name = "Emilia";
-  //   res.redirect("/");
-  // } else {
-  //   console.log("Wrong user and/or password!");
-  //   req.session.isAdmin = false;
-  //   req.session.isLoggedIn = false;
-  //   req.session.name = "";
-  //   res.redirect("/login");
-  // }
-
   db.get("SELECT * FROM user WHERE userusername=?", [username], (err, user) => {
     if (err) {
       console.log("Error in comparing encryption: ", err);
