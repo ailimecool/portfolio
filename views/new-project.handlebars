@@ -1,41 +1,47 @@
 <main>
-  <h1>New project</h1>
+  <h1 class="full">New project</h1>
 
-  {{#if isLoggedIn}}
-    {{#if isAdmin}}
-      <form action="/projects/new" method="post">
-        <input
-          type="text"
-          name="projectimg"
-          id="projectimg"
-          placeholder="/img/"
-          required="required"
-        />
-        <input
-          type="text"
-          name="projectname"
-          id="projectname"
-          placeholder="Project name"
-          required="required"
-        />
-        <input
-          type="text"
-          name="projectdescription"
-          id="projectdesription"
-          placeholder="Project description"
-          required="required"
-        />
-        <input
-          type="date"
-          name="projectdate"
-          id="projectdate"
-          required="required"
-        />
+  <div class="full">
+    {{#if isLoggedIn}}
+      {{#if isAdmin}}
+        <form action="/projects/new" method="post">
+          <input
+            type="text"
+            name="projectimg"
+            id="projectimg"
+            placeholder="/img/"
+            required="required"
+          />
+          <br />
+          <input
+            type="text"
+            name="projectname"
+            id="projectname"
+            placeholder="Project name"
+            required="required"
+          />
+          <br />
+          <input
+            type="text"
+            name="projectdescription"
+            id="projectdesription"
+            placeholder="Project description"
+            required="required"
+          />
+          <br />
+          <input
+            type="date"
+            name="projectdate"
+            id="projectdate"
+            required="required"
+          />
+          <br />
 
-        <input type="submit" value="Add project" />
+          <input type="submit" value="Add project" />
 
-      </form>
+        </form>
+      {{/if}}
     {{/if}}
-  {{/if}}
+  </div>
 
 </main>

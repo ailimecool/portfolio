@@ -1,6 +1,6 @@
 <main>
-  <h1>Modify project</h1>
-  <div>
+  <h1 class="full">Modify project</h1>
+  <div class="full">
     {{#if isLoggedIn}}
       {{#if isAdmin}}
 
@@ -14,6 +14,7 @@
               value="{{project.projectimg}}"
               required="required"
             />
+            <br />
             <label for="projectname">Project name</label>
             <input
               type="text"
@@ -22,6 +23,7 @@
               value="{{project.projectname}}"
               required="required"
             />
+            <br />
             <label for="projectdescription">Project description</label>
             <input
               type="text"
@@ -30,6 +32,7 @@
               value="{{project.projectdescription}}"
               required="required"
             />
+            <br />
             <label for="projectdate">Project date</label>
             <input
               type="date"
@@ -38,6 +41,7 @@
               value="{{project.projectdate}}"
               required="required"
             />
+            <br />
             <input type="submit" value="Submit changes" />
           </fieldset>
         </form>
