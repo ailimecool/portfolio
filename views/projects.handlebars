@@ -1,18 +1,14 @@
 <main class="container">
-  {{#if isAdmin}}
-    <div>
-      <a href="/projects/new">NEW PROJECT</a>
-    </div>
-  {{/if}}
+  
 
   {{#if dbError}}
     <div>Sorry technical issues! <br /> {{theError}}</div>
   {{else}}
 
     {{#each projects}}
-    <a href="/project-page/{{projectid}}">
       <div class="project-border">
-
+        <a href="/project-page/{{projectid}}">
+        
         <img class="project-img" src="{{projectimg}}" alt="{{projectimg}}" />
         <h1 class="project-name">{{projectname}}</h1>
         <p class="project-description">{{projectdescription}}</p>
@@ -29,4 +25,9 @@
     {{/each}}
   {{/if}}
 
+{{#if isAdmin}}
+    <div>
+      <a href="/projects/new">NEW PROJECT</a>
+    </div>
+  {{/if}}
 </main>

@@ -1,19 +1,25 @@
 <main class="container">
-  <div>
+  <div class="full">
     {{#if dbError}}
       <div>Sorry technical issues! <br /> {{theError}}</div>
-    {{else}}
+      {{else}}
 
-      {{#each messages}}
+    
+        {{#each messages}}
+          <div class="message-border">
+            <h1 class="message-name">{{messagename}} {{messagesurname}}</h1>
+            <p class="message-text">{{message}}</p>
+            <p class="message-text">{{messageemail}}</p>
+            <p class="message-date">{{messagedate}}</p>
 
-        <h1>{{messagename}} {{messagesurname}}</h1>
-        <p>{{message}}</p>
-        <p>{{messageemail}}</p>
-        <p>{{messagedate}}</p>
-
-        <a href="/messages/delete/{{messageid}}">DELETE</a>
-
-      {{/each}}
+            <div>
+              {{#if ../isAdmin}}
+                <a href="/messages/delete/{{messageid}}">DELETE</a>
+              {{/if}} 
+            </div>
+          </div>
+        {{/each}} 
+     
     {{/if}}
   </div>
 </main>

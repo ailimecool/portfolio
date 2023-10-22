@@ -1,24 +1,19 @@
 <main class="container">
-  <section class="columns">
-    <form
-      class="login-function column col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12s"
-      action="/login"
-      method="post"
-    >
-      <input
-        id="username"
-        name="username"
-        type="text"
-        placeholder="Username"
-        required="required"
-      />
-      <input
-        id="password"
-        name="password"
-        type="password"
-        placeholder="Password"
-        required="required"
-      />
-      <input type="submit" value="Log in" />
-    </form></section>
+  <form class="full login-function" action="/login" method="post">
+    <input
+      id="username"
+      name="username"
+      type="text"
+      placeholder="Username"
+      required="required"
+    />
+    <input
+      id="password"
+      name="password"
+      type="password"
+      placeholder="Password"
+      required="required"
+    />
+    <input type="submit" value="Log in" />
+  </form>
 </main>

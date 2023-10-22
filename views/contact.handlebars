@@ -1,55 +1,51 @@
 <main class="container">
-  <section class="columns">
-    <div
-      class="column col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12s"
-    >
-      <form action="/messages/new" method="post">
-        <input
-          class="message-name"
-          type="text"
-          name="messagename"
-          placeholder="Name"
-          required="required"
-        />
-        <input
-          class="message-surname"
-          type="text"
-          name="messagesurname"
-          placeholder="Surname"
-          required="required"
-        />
-        <input
-          class="message-mail"
-          type="email"
-          name="messageemail"
-          placeholder="Mail"
-          required="required"
-        />
-        <input
-          class="message"
-          type="text"
-          name="message"
-          placeholder="Message"
-          required="required"
-        />
-        <input
-          class="message-date"
-          type="date"
-          name="messagedate"
-          required="required"
-        />
-        <input class="send-button" type="submit" value="Send!" />
-      </form>
-    </div>
-    <div
-      class="column col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12s"
-    >
-      <h1>Contact me</h1>
-      <p>Norra Bogesundsgatan 2, Jönköping 554 73
-        <br />
-        emilia.fredriksson2003@gmail.com
-        <br />
-        076 311 21 34</p>
-    </div>
-  </section>
+  <div class="left">
+    <form class="message-grid" action="/messages/new" method="post">
+      <input
+        class="message-left"
+        type="text"
+        name="messagename"
+        placeholder="Name"
+        required="required"
+      />
+      <input
+        class="message-right"
+        type="text"
+        name="messagesurname"
+        placeholder="Surname"
+        required="required"
+      />
+      <input
+        class="message-full"
+        type="email"
+        name="messageemail"
+        placeholder="Mail"
+        required="required"
+      />
+      <textarea
+        name="message-full"
+        class="message"
+        type="text"
+        placeholder="Message"
+        required="required"
+        cols="30"
+        rows="10"
+      ></textarea>
+      <input
+        class="message-left"
+        type="date"
+        name="messagedate"
+        required="required"
+      />
+      <input class="message-right" type="submit" value="Send!" />
+    </form>
+  </div>
+  <div class="right contact">
+    <h1>Contact me</h1>
+    <p>Norra Bogesundsgatan 2, Jönköping 554 73
+      <br />
+      emilia.fredriksson2003@gmail.com
+      <br />
+      076 311 21 34</p>
+  </div>
 </main>

@@ -1,27 +1,28 @@
 <main class="container">
-  <section>
-     {{#if dbError}}
+  {{#if dbError}}
     <div>Sorry technical issues! <br /> {{theError}}</div>
   {{else}}
 
-<div><a href="/projects">GO BACK</a></div>
+    <div class="left"><a href="/projects">GO BACK</a></div>
 
+    <div class="left"><img
+        class="project-img"
+        src="{{proj.projectimg}}"
+        alt="{{proj.projectimg}}"
+      /></div>
 
-        <div><img class="project-img" src="{{proj.projectimg}}" alt="{{proj.projectimg}}" /></div>
+    <div class="right">
+      <h1 class="project-name">{{proj.projectname}}</h1>
+      <p class="project-description">{{proj.projectdescription}}</p>
+      <p class="project-date">{{proj.projectdate}}</p>
 
-        <div>
-            <h1 class="project-name">{{proj.projectname}}</h1>
-            <p class="project-description">{{proj.projectdescription}}</p>
-            <p class="project-date">{{proj.projectdate}}</p>
-        </div>
-
-        <div>
-            {{#if ../isAdmin}}
-                <a href="/projects/update/{{projectid}}">MODIFY</a>
-                <a href="/projects/delete/{{projectid}}">DELETE</a>
-            {{/if}}
-        </div>
+      <div>
+        {{#if isAdmin}}
+          <a href="/projects/update/{{projectid}}">MODIFY</a>
+          <a href="/projects/delete/{{projectid}}">DELETE</a>
+        {{/if}}
+      </div>
+    </div>
 
   {{/if}}
-  </section>
 </main>
